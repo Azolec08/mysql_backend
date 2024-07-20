@@ -6,7 +6,6 @@ import serverless from "serverless-http";
 
 dotenv.config();
 const app = express();
-const router = express.Router();
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -23,7 +22,7 @@ router.get("/", (req, res) => {
   res.json("Hello this is the backend");
 });
 
-router.post("/books", (req, res) => {
+app.post("/books", (req, res) => {
   const q = "INSERT INTO books (`title`,`desc`, `cover`, `price`) VALUES (?)";
   const values = [
     req.body.title,
@@ -41,7 +40,7 @@ router.post("/books", (req, res) => {
   });
 });
 
-router.get("/books", (req, res) => {
+app.get("/books", (req, res) => {
   const q = "SELECT * FROM books";
   db.query(q, (err, data) => {
     if (err) return res.json(err);
@@ -49,7 +48,7 @@ router.get("/books", (req, res) => {
   });
 });
 
-router.delete("/books/:id", (req, res) => {
+app.delete("/books/:id", (req, res) => {
   const bookId = req.params.id;
   const q = "DELETE FROM books WHERE id = ?";
 
@@ -59,7 +58,7 @@ router.delete("/books/:id", (req, res) => {
   });
 });
 
-router.put("/books/:id", (req, res) => {
+app.put("/books/:id", (req, res) => {
   const bookId = req.params.id;
   const q =
     "UPDATE books SET `title`= ?, `desc` = ?, `cover`= ?, `price` = ? WHERE id = ?";
@@ -76,8 +75,6 @@ router.put("/books/:id", (req, res) => {
     return res.json("Book has been updated successfully");
   });
 });
-
-app.use("/", router);
 
 // Export the app as a serverless function
 export default serverless(app);
