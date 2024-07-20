@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(cors());
 
 // Serve static files from the images directory
-router.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.json("Hello this is the backend");
 });
 
