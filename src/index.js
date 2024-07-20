@@ -77,7 +77,7 @@ router.put("/books/:id", (req, res) => {
   });
 });
 
-app.use("/api", router);
+app.use("/", router);
 
 // Export the app as a serverless function
 export default serverless(app);
