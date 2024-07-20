@@ -2,7 +2,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mysql from "mysql2";
-import serverless from "serverless-http";
 
 dotenv.config();
 const app = express();
@@ -76,5 +75,9 @@ app.put("/books/:id", (req, res) => {
   });
 });
 
+app.listen(8000, () => {
+  console.log("Connected to backend");
+});
+
 // Export the app as a serverless function
-export default serverless(app);
+export default app;
