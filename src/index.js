@@ -12,16 +12,16 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 });
+
 app.use(express.json());
 app.use(cors());
 
-// Serve static files from the images directory
 app.get("/", (req, res) => {
   res.json("Hello this is the backend");
 });
 
 app.post("/books", (req, res) => {
-  const q = "INSERT INTO books (`title`,`desc`, `cover`, `price`) VALUES (?)";
+  const q = "INSERT INTO books (`title`, `desc`, `cover`, `price`) VALUES (?)";
   const values = [
     req.body.title,
     req.body.desc,
@@ -64,7 +64,7 @@ app.put("/books/:id", (req, res) => {
   const values = [
     req.body.title,
     req.body.desc,
-    req.body.cover, // Handle file upload or existing cover
+    req.body.cover,
     req.body.price,
   ];
 
