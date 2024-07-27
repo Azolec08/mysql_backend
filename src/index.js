@@ -2,7 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mysql from "mysql2";
-import Serverless from "serverless-http";
+
 dotenv.config();
 const app = express();
 
@@ -12,7 +12,6 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
 });
-
 app.use(express.json());
 app.use(cors());
 
@@ -80,4 +79,4 @@ app.listen(8000, () => {
 });
 
 // Export the app as a serverless function
-export default Serverless(app);
+export default app;
