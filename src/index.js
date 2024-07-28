@@ -18,7 +18,13 @@ const db = mysql.createConnection({
 });
 
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: "https://todo-list-fullstack-mysql.vercel.app", // Replace with your frontend domain
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.json("Hello this is the backend");
